@@ -17,8 +17,6 @@ import albumentations as A  # our data augmentation library
 
 import matplotlib.pyplot as plt
 
-import warnings
-warnings.filterwarnings("ignore")
 from collections import defaultdict, deque
 import datetime
 import time
@@ -302,3 +300,4 @@ plt.imshow(draw_bounding_boxes(img_int,
 ).permute(1, 2, 0))
 
 
+plt.show()
