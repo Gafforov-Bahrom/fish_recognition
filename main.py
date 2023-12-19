@@ -24,9 +24,6 @@ from tqdm import tqdm # progress bar
 from torchvision.utils import draw_bounding_boxes
 
 
-print(torch.__version__)
-print(torchvision.__version__)
-
 
 # PyCOCOTools provides many utilities for dealing with datasets in the COCO format, and if you wanted, you could evaluate the model's performance on the dataset with some of the utilities provided with this library.
 # 
@@ -131,7 +128,6 @@ categories
 
 
 classes = [i[1]['name'] for i in categories.items()]
-classes
 
 
 train_dataset = AquariumDetection(root=dataset_path, transforms=get_transforms(True))
@@ -259,7 +255,7 @@ def train_one_epoch(model, optimizer, loader, device, epoch):
 # 10 Epochs should be enough to train this model for a high accuracy
 
 
-num_epochs=10
+num_epochs=0
 
 for epoch in range(num_epochs):
     train_one_epoch(model, optimizer, train_loader, device, epoch)
@@ -282,6 +278,9 @@ torch.cuda.empty_cache()
 
 test_dataset = AquariumDetection(root=dataset_path, split="test", transforms=get_transforms(False))
 
+import pickle
+with open('faster_r_cnn.pkl', 'rb') as f:
+    model = pickle.load(f)
 
 img, _ = test_dataset[5]
 img_int = torch.tensor(img*255, dtype=torch.uint8)
@@ -290,14 +289,11 @@ with torch.no_grad():
     pred = prediction[0]
 
 
-# it did learn
-
-
-fig = plt.figure(figsize=(14, 10))
-plt.imshow(draw_bounding_boxes(img_int,
+# fig = plt.figure(figsize=(14, 10))
+torchvision.utils.save_image((draw_bounding_boxes(img_int,
     pred['boxes'][pred['scores'] > 0.8],
     [classes[i] for i in pred['labels'][pred['scores'] > 0.8].tolist()], width=4
-).permute(1, 2, 0))
+).permute(0, 1, 2).div(255)), "temp_res.png")
 
 
-plt.show()
+# plt.show()

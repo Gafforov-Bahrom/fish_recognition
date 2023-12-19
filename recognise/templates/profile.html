@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Profile </h1>
+    {% if error %}
+    <div class="alert alert-danger" role="alert"> {{ error }} </div>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class=""><label class="form-label">Username</label>
+            <input class="form-control" type="text" id="username" name="username" value="{{user.username}}"
+                readonly="true" required><br><br>
+        </div>
+        <div class=""><label class="form-label">First name</label>
+            <input class="form-control" type="text" id="first_name" name="first_name" value="{{user.first_name}}"
+                required><br><br>
+        </div>
+        <div class=""><label class="form-label">Second name</label>
+            <input class="form-control" type="text" id="last_name" name="last_name" value="{{user.last_name}}"><br><br>
+        </div>
+        <div class=""><label class="form-label">Old password</label>
+            <input class="form-control" type="password" id="password" name="password"><br><br>
+        </div>
+        <div class=""><label class="form-label">New password</label>
+            <input class="form-control" type="password" id="password" name="password"><br><br>
+        </div>
+        <div class=""><label class="form-label">Confirm new password</label>
+            <input class="form-control" type="password" id="password" name="confirm_password"><br><br>
+        </div>
+        <div class="center">
+            <a class="btn btn-primary mr-2" href="/">Back</a>
+            <a class="btn btn-primary mr-2" href="/logout">Logout</a>
+            <button type="submit" class="btn btn-primary ml-2">Save</button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}

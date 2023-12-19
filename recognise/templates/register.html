@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h1 class="text-center">Register</h1>
+  {% if error %}
+  <div class="alert alert-danger" role="alert"> {{ error }} </div>
+  {% endif %}
+  <form method="POST">
+    {% csrf_token %}
+    <div class=""><label class="form-label">First name</label>
+      <input class="form-control" type="text" id="first_name" name="first_name" value=""><br><br>
+    </div>
+    <div class=""><label class="form-label">Second name</label>
+      <input class="form-control" type="text" id="last_name" name="last_name"><br><br>
+    </div>
+    <div class=""><label class="form-label">Username</label>
+      <input class="form-control" type="text" id="username" name="username" required><br><br>
+    </div>
+    <div class=""><label class="form-label">Password</label>
+      <input class="form-control" type="password" id="password1" name="password1" required><br><br>
+    </div>
+    <div class=""><label class="form-label">Confirm password</label>
+      <input class="form-control" type="password" id="password2" name="password2" required><br><br>
+    </div>
+    <div class="center">
+      <a class="btn btn-primary" href="/">Back</a>
+      <button type="submit" class="btn btn-primary ml-2">Register</button>
+    </div>
+  </form>
+
+</div>
+{% endblock %}
